@@ -37,6 +37,12 @@ class Grafo:
         :param destino: Nodo de fin
         :return: ?
         """
+    
+    def visualizarSistemaEbike(self):
+        """
+        Visualiza el grafo.
+        """
+        
     def eliminar_nodo(self, nombre):
         """
         Elimina un nodo del grafo.
