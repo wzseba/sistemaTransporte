@@ -49,3 +49,5 @@ class Grafo:
         :param nombre: Nombre del nodo a eliminar
         """
         self.grafo.remove_node(nombre)
+    
+    # probar commit
