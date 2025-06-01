@@ -1,5 +1,5 @@
 import networkx as nx
-
+#coment
 class Grafo:
     def __init__(self):
         self.grafo = nx.Graph()
