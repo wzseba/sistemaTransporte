@@ -1,6 +1,4 @@
 import networkx as nx
-# grafpo
-
 
 class Grafo:
     def __init__(self):
@@ -33,13 +31,15 @@ class Grafo:
         :param destino: Nodo de fin
         :return: Lista de nodos en el camino mínimo
         """
-
-    def calcularRutaCamion(self):
+        camino_minimo = nx.dijkstra_path(self.grafo, origen,destino)
+        return camino_minimo
+        
+    def calcularRutaCamion(self, origen, destino):
         """
         Calcula la ruta óptima para un camión entre dos nodos.
         :param origen: Nodo de inicio
         :param destino: Nodo de fin
-        :return: ?
+        :return: Devuelve
         """
         caminofinal = []  # lista que contendrá el recorrido a devolver
 
@@ -83,10 +83,9 @@ class Grafo:
 
         return caminofinal  # devuelve la lista con el recorrido
 
-
 def eliminar_nodo(self, nombre):
     """
-        Elimina un nodo del grafo.
-        :param nombre: Nombre del nodo a eliminar
-        """
+    Elimina un nodo del grafo.
+    param nombre: Nombre del nodo a eliminar
+    """
     self.grafo.remove_node(nombre)
