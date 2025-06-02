@@ -1,5 +1,4 @@
 import networkx as nx
-
 class Grafo:
     def __init__(self):
         self.grafo = nx.Graph()
@@ -29,7 +28,9 @@ class Grafo:
         :param destino: Nodo de fin
         :return: Lista de nodos en el camino mínimo
         """
-    
+        camino_minimo = nx.dijkstra_path(self.grafo, origen,destino)
+        return camino_minimo
+        
     def calcularRutaCamion(self, origen, destino):
         """
         Calcula la ruta óptima para un camión entre dos nodos.
@@ -37,17 +38,9 @@ class Grafo:
         :param destino: Nodo de fin
         :return: ?
         """
-    
-    def visualizarSistemaEbike(self):
-        """
-        Visualiza el grafo.
-        """
-        
     def eliminar_nodo(self, nombre):
         """
         Elimina un nodo del grafo.
         :param nombre: Nombre del nodo a eliminar
         """
         self.grafo.remove_node(nombre)
-    
-    # probar commit
