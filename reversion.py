@@ -1,44 +1,32 @@
 import networkx as nx
-class Grafo:
-    def __init__(self):
-        self.grafo = nx.Graph()
-        self.nodosPrincipales = []
+import matplotlib.pyplot as plt
 
-        """
-        Agrega un nodo al grafo con un nombre y tipo especificados.
-        
-        :param nombre: Nombre del nodo a agregar.
-        :param tipo: Tipo del nodo (por ejemplo, 'principal', 'secundario')
-        """
-    def agregar_nodo(self, nombre, tipo):
-        self.grafo.add_node(nombre, tipo=tipo)
+
+class Grafo:
+    def __init__(self, Principales, Secundarios, Aristas):
+        self.grafo = nx.Graph()
+        self.nodosPrincipales = Principales
+        self.nodosSecundarios = Secundarios
+        self.grafo.add_nodes_from(Principales)
+        self.grafo.add_nodes_from(Secundarios)
+        self.grafo.add_weighted_edges_from(Aristas)
+
+    def agregar_nodo_principal(self, nombre):
+        self.grafo.add_node(nombre)
+        self.nodosPrincipales.append(nombre)
+
+    def agregar_nodo_secundario(self, nombre):
+        self.grafo.add_node(nombre)
+        self.nodosSecundarios.append(nombre)
 
     def agregar_arista(self, origen, destino, peso):
-        """
-        Agrega una arista entre dos nodos.
-        :param origen: Nodo de inicio
-        :param destino: Nodo de fin
-        :param peso: Costo del recorrido
-        """
         self.grafo.add_edge(origen, destino, weight=peso)
 
     def caminoMinimoAlumno(self, origen, destino):
-        """
-        Calcula el camino mínimo entre dos nodos.
-        :param origen: Nodo de inicio
-        :param destino: Nodo de fin
-        :return: Lista de nodos en el camino mínimo
-        """
-        camino_minimo = nx.dijkstra_path(self.grafo, origen,destino)
+        camino_minimo = nx.dijkstra_path(self.grafo, origen, destino)
         return camino_minimo
-        
+
     def calcularRutaCamion(self):
-        """
-        Calcula la ruta óptima para un camión entre dos nodos.
-        :param origen: Nodo de inicio
-        :param destino: Nodo de fin
-        :return: ?
-        """
         caminofinal = []  # lista que contendrá el recorrido a devolver
 
         # copia la lista de nodos principales, sin afectar el original
@@ -83,8 +71,13 @@ class Grafo:
         return caminofinal  # devuelve la lista con el recorrido
 
     def eliminar_nodo(self, nombre):
-        """
-        Elimina un nodo del grafo.
-        :param nombre: Nombre del nodo a eliminar
-        """
         self.grafo.remove_node(nombre)
+        if nombre in self.nodosPrincipales:
+            self.nodosPrincipales.remove(nombre)
+        elif nombre in self.nodosSecundarios:
+            self.nodosSecundarios.remove(nombre)
+
+    def visualizar_circuito(self):
+        nx.draw(self.grafo, pos=nx.spring_layout(self.grafo), with_labels=True, node_color='lightblue',
+                edge_color='gray', node_size=700, font_size=10, font_color='black', font_weight='bold')
+        plt.show()
