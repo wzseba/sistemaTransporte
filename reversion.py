@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 class Grafo:
-    def __init__(self, Principales, Secundarios, Aristas):
+    def __init__(self, Principales=[], Secundarios=[], Aristas=[]):
         self.grafo = nx.Graph()
         self.nodosPrincipales = Principales
         self.nodosSecundarios = Secundarios
@@ -78,6 +78,21 @@ class Grafo:
             self.nodosSecundarios.remove(nombre)
 
     def visualizar_circuito(self):
-        nx.draw(self.grafo, pos=nx.spring_layout(self.grafo), with_labels=True, node_color='lightblue',
-                edge_color='gray', node_size=700, font_size=10, font_color='black', font_weight='bold')
+        layout = nx.spring_layout(self.grafo)  # diseño del grafo
+        labels = nx.get_edge_attributes(self.grafo, 'weight')  # obtiene los pesos
+
+    # Dibuja el grafo
+        nx.draw(self.grafo, pos=nx.circular_layout(self.grafo), with_labels=True,
+            node_color='lightblue', edge_color='gray',
+            node_size=1000, font_size=7, font_color='black', font_weight="bold")
+
+    # Dibuja los pesos más cercanos a las aristas
+        nx.draw_networkx_edge_labels(self.grafo,
+                                 pos=nx.circular_layout(self.grafo),
+                                 edge_labels=labels,
+                                 label_pos=0.4,  # ajusta la posición a lo largo de la arista
+                                 font_size=10,
+                                 font_color='blue')  # opcional: cambiar color para mejor visibilidad
+
         plt.show()
+
