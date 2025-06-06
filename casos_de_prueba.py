@@ -21,8 +21,7 @@ aristas = [("Casa Rosada","Cabildo",3),
            ("Edificio Kavanagh","Plaza San Martín",4),
            ("Plaza de Mayo","Teatro Colón",5),
            ("Teatro Colón","Edificio Kavanagh",2),
-           ("Av de Mayo","Congreso",6),
-           ("Plaza San Martín","nodo error2",30)]
+           ("Av de Mayo","Congreso",6),]
 
 
 #grafo vacio
