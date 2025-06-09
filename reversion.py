@@ -9,7 +9,9 @@ class Grafo:
         self.nodosSecundarios = Secundarios
         self.grafo.add_nodes_from(Principales)
         self.grafo.add_nodes_from(Secundarios)
-        self.grafo.add_weighted_edges_from(Aristas)
+        # self.grafo.add_weighted_edges_from(Aristas)
+        for nodo_origen, nodo_destino, peso, segura in Aristas:
+            self.grafo.add_edge(nodo_origen, nodo_destino, weight=peso, segura_para_ebike=segura)
 
     def agregar_nodo_principal(self, nombre):
         self.grafo.add_node(nombre)
@@ -19,12 +21,26 @@ class Grafo:
         self.grafo.add_node(nombre)
         self.nodosSecundarios.append(nombre)
 
-    def agregar_arista(self, origen, destino, peso):
-        self.grafo.add_edge(origen, destino, weight=peso)
+    def agregar_arista(self, origen, destino, peso, segura):
+        self.grafo.add_edge(origen, destino, weight=peso, segura_para_ebike=segura)
 
     def caminoMinimoAlumno(self, origen, destino):
-        camino_minimo = nx.dijkstra_path(self.grafo, origen, destino)
-        return camino_minimo
+       # Función callback para Dijkstra
+        def ebike_seguro(i, f, data):
+            # Si la arista es segura para ebikes, devuelve su peso.
+            # De lo contrario, devuelve None para que la ignore.
+            if data.get("segura_para_ebike", False):
+                return data.get("weight", 1) # Asume 1 si no hay 'weight' explícito
+            else:
+                return None # Ignora esta arista
+        
+        # Intenta encontrar el camino más corto entre origen y destino
+        try:
+            camino_minimo = nx.dijkstra_path(self.grafo, origen, destino, weight=ebike_seguro)
+            costo = nx.dijkstra_path_length(self.grafo, origen, destino, weight=ebike_seguro)
+            return camino_minimo, costo
+        except nx.NetworkXNoPath:
+            return None, "No hay camino seguro para ebikes entre los nodos especificados."
 
     def calcularRutaCamion(self):
         caminofinal = []  # lista que contendrá el recorrido a devolver
