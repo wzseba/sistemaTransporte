@@ -1,6 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from reversion import Grafo
+from reversion import Circuito_Ebike
 
 #-----------------------------------------------------------#
 #                          Grafo 1                          #
@@ -8,10 +8,10 @@ from reversion import Grafo
 
 edificios_importantes = ["Casa Rosada","Catedral","Cabildo","Congreso","Teatro Colón","Edificio Kavanagh"]
 
-nodos_secundarios = ["Casa1","Casa2","Plaza de Mayo","Av de Mayo","Plaza San Martín"]
+lugares_secundarios = ["Casa1","Casa2","Casa3","Plaza de Mayo","Av de Mayo","Plaza San Martín"]
 
                 
-aristas = [("Casa Rosada","Cabildo",3,True),
+rutas = [("Casa Rosada","Cabildo",3,True),
            ("Casa Rosada","Casa1",1,True),
            ("Catedral","Casa2",1,True),
            ("Catedral","Plaza de Mayo",1,True),
@@ -23,41 +23,32 @@ aristas = [("Casa Rosada","Cabildo",3,True),
            ("Edificio Kavanagh","Plaza San Martín",4,True),
            ("Plaza de Mayo","Teatro Colón",5,True),
            ("Teatro Colón","Edificio Kavanagh",2,True),
-           ("Av de Mayo","Congreso",6,True),]
+           ("Av de Mayo","Congreso",6,True),
+           ("Casa3","Plaza de Mayo",7,True)]
 
-grafo1 = Grafo(edificios_importantes,nodos_secundarios,aristas)
-
-
-#Prueba 1: Caso base
-#Objetivo: ?.
-
-"""
-grafo1.visualizar_circuito()
-"""
+circuito1 = Circuito_Ebike(edificios_importantes,lugares_secundarios,rutas)
 
 
-#Prueba 2: Ruta segura para e-bikes (caminoMinimoAlumno)
+
+#caso_ruta_segura_para _e-bikes
 #Objetivo: Encontrar la ruta mas corta entre el Planetario y la Facultad de Derecho, usando solo aristas marcadas como segura.
 
 """
-print(grafo1.caminoMinimoAlumno("Planetario Galileo Galilei", "Facultad de Derecho"))
-grafo1.visualizar_circuito()
+print(circuito1.caminoMinimoAlumno("Planetario Galileo Galilei", "Facultad de Derecho"))
 """
 
-#Prueba 3: Peso de aristas negativo
+#caso_peso_de_aristas_negativo
 #Objetivo: Detectar un error al usar valores negativos en el peso de las aristas.
 
 """
-grafo1.agregar_arista("Casa1", "Congreso", -1, True)
-grafo1.visualizar_circuito()
+circuito1.agregar_ruta("Casa1", "Congreso", -10, True)
 """
 
-#Prueba 4: Nodos no existentes
+#caso_nodos_inexistentes
 #Objetivo: Detectar un error al agregar aristas con nodos que no existen.
 
 """
-grafo1.agregar_arista("Mar del Plata", "Casa Rosada", 5, False)
-grafo1.visualizar_circuito()
+circuito1.agregar_arista("Mar del Plata", "Casa Rosada", 5, False)
 """
 
 
@@ -77,7 +68,7 @@ edificios_importantes = [
     "Centro Cultural Kirchner"
 ]
 
-nodos_secundarios = [
+lugares_secundarios = [
     "Calle Corrientes", 
     "Avenida Santa Fe", 
     "Plaza Italia", 
@@ -87,7 +78,7 @@ nodos_secundarios = [
     "Parque Centenario"
 ]
 
-aristas = [
+rutas = [
     ("Obelisco", "Palacio Barolo", 3, True),
     ("Obelisco", "Calle Corrientes", 1, False),
     ("Planetario Galileo Galilei", "Avenida Figueroa Alcorta", 1, True),
@@ -109,39 +100,34 @@ aristas = [
 
 
 
-grafo2 = Grafo(edificios_importantes,nodos_secundarios,aristas)
+circuito2 = Circuito_Ebike(edificios_importantes,lugares_secundarios,rutas)
 
-#Prueba 1: Caso base
-#Objetivo: ?.
-"""
 
-"""
 
-#Prueba 2: Ruta segura para e-bikes (caminoMinimoAlumno)
-#Objetivo: Encontrar la ruta mas corta entre el Planetario y la Facultad de Derecho, usando solo aristas marcadas como segura.
+
+#caso_agregar_nuevo_lugar
+#Objetivo: Agregar un nuevo edificio a la lista de edificios principales y asegurarse de que siempre tenga una ruta
 
 """
-print(grafo2.caminoMinimoAlumno("Planetario Galileo Galilei", "Facultad de Derecho"))
-grafo2.visualizar_circuito()
+circuito2.visualizar_circuito()
+circuito2.agregar_ruta_y_edificio_principal("Teatro San Martín", "Facultad de C.Exactas", 4, True)
+circuito2.visualizar_circuito()
 """
 
-
-#Prueba 3: Peso de aristas negativo
-#Objetivo: Detectar un error al usar valores negativos en el peso de las aristas.
-
+#caso_calcular_ruta_camion
+#Objetivo: Calcular el camino mas corto que pase por todos los edificios principales
 """
-grafo2.agregar_arista("Teatro San Martín", "Facultad de Derecho", -1, True)
-grafo2.visualizar_circuito()
+print(circuito2.calcularRutaCamion())
 """
 
-
-#Prueba 4: Nodos no existentes
-#Objetivo: Detectar un error al agregar aristas con nodos que no existen.
-
+#caso_eliminar_lugar
+#Objetivo: Verificar que el lugar se elimine correctamente
+""""
+circuito2.visualizar_circuito()
+circuito2.eliminar_lugar("Teatro San Martín")
+circuito2.visualizar_circuito()
 """
-grafo2.agregar_arista("Facultad de Derecho", "Costa Salgero", 1, True)
-grafo2.visualizar_circuito()
-"""
+
 
 
 
