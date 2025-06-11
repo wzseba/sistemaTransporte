@@ -2,13 +2,15 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from reversion import Grafo
 
-#Caso base
+#-----------------------------------------------------------#
+#                          Grafo 1                          #
+#-----------------------------------------------------------#
 
 edificios_importantes = ["Casa Rosada","Catedral","Cabildo","Congreso","Teatro Colón","Edificio Kavanagh"]
 
 nodos_secundarios = ["Casa1","Casa2","Plaza de Mayo","Av de Mayo","Plaza San Martín"]
 
-
+                
 aristas = [("Casa Rosada","Cabildo",3,True),
            ("Casa Rosada","Casa1",1,True),
            ("Catedral","Casa2",1,True),
@@ -23,21 +25,47 @@ aristas = [("Casa Rosada","Cabildo",3,True),
            ("Teatro Colón","Edificio Kavanagh",2,True),
            ("Av de Mayo","Congreso",6,True),]
 
+grafo1 = Grafo(edificios_importantes,nodos_secundarios,aristas)
 
-#grafo vacio
+
+#Prueba 1: Caso base
+#Objetivo: ?.
+
 """
-grafo = Grafo()
-grafo.visualizar_circuito()
-print(grafo.calcularRutaCamion())
+grafo1.visualizar_circuito()
 """
 
-#grafo1 = Grafo(edificios_importantes,nodos_secundarios,aristas)
-#print(grafo1.calcularRutaCamion())
-#grafo1.visualizar_circuito()
 
-#------------------------------------------#
-# Grafo 2
-#------------------------------------------#
+#Prueba 2: Ruta segura para e-bikes (caminoMinimoAlumno)
+#Objetivo: Encontrar la ruta mas corta entre el Planetario y la Facultad de Derecho, usando solo aristas marcadas como segura.
+
+"""
+print(grafo1.caminoMinimoAlumno("Planetario Galileo Galilei", "Facultad de Derecho"))
+grafo1.visualizar_circuito()
+"""
+
+#Prueba 3: Peso de aristas negativo
+#Objetivo: Detectar un error al usar valores negativos en el peso de las aristas.
+
+"""
+grafo1.agregar_arista("Casa1", "Congreso", -1, True)
+grafo1.visualizar_circuito()
+"""
+
+#Prueba 4: Nodos no existentes
+#Objetivo: Detectar un error al agregar aristas con nodos que no existen.
+
+"""
+grafo1.agregar_arista("Mar del Plata", "Casa Rosada", 5, False)
+grafo1.visualizar_circuito()
+"""
+
+
+
+
+#-----------------------------------------------------------#
+#                          Grafo 2                          #   
+#-----------------------------------------------------------#           
 edificios_importantes = [
     "Obelisco", 
     "Palacio Barolo", 
@@ -79,10 +107,42 @@ aristas = [
     ("Parque Centenario", "Planetario Galileo Galilei", 6, True),
 ]
 
-"""
-Prueba 1: Ruta segura para e-bikes (caminoMinimoAlumno)
-Objetivo: Encontrar la ruta mas corta entre el Planetario y la Facultad de Derecho, usando solo aristas marcadas como segura.
-"""
+
+
 grafo2 = Grafo(edificios_importantes,nodos_secundarios,aristas)
+
+#Prueba 1: Caso base
+#Objetivo: ?.
+"""
+
+"""
+
+#Prueba 2: Ruta segura para e-bikes (caminoMinimoAlumno)
+#Objetivo: Encontrar la ruta mas corta entre el Planetario y la Facultad de Derecho, usando solo aristas marcadas como segura.
+
+"""
 print(grafo2.caminoMinimoAlumno("Planetario Galileo Galilei", "Facultad de Derecho"))
 grafo2.visualizar_circuito()
+"""
+
+
+#Prueba 3: Peso de aristas negativo
+#Objetivo: Detectar un error al usar valores negativos en el peso de las aristas.
+
+"""
+grafo2.agregar_arista("Teatro San Martín", "Facultad de Derecho", -1, True)
+grafo2.visualizar_circuito()
+"""
+
+
+#Prueba 4: Nodos no existentes
+#Objetivo: Detectar un error al agregar aristas con nodos que no existen.
+
+"""
+grafo2.agregar_arista("Facultad de Derecho", "Costa Salgero", 1, True)
+grafo2.visualizar_circuito()
+"""
+
+
+
+

@@ -10,7 +10,17 @@ class Grafo:
         self.grafo.add_nodes_from(Principales)
         self.grafo.add_nodes_from(Secundarios)
         # self.grafo.add_weighted_edges_from(Aristas)
+        
         for nodo_origen, nodo_destino, peso, segura in Aristas:
+            #Evita que se agregen nodos que no estan en ninguna de las listas
+            if(not(nodo_origen in self.nodosPrincipales or nodo_origen in self.nodosSecundarios)):
+                raise ValueError("El origen no es uno de los nodos previstos")
+            elif(not(nodo_destino in self.nodosPrincipales or nodo_destino in self.nodosSecundarios)):
+                raise ValueError("El destino no es uno de los nodos previstos")
+            
+            if(peso < 0):
+                raise ValueError("El peso de la arista no puede ser negativo")
+            
             self.grafo.add_edge(nodo_origen, nodo_destino, weight=peso, segura_para_ebike=segura)
 
     def agregar_nodo_principal(self, nombre):
@@ -22,6 +32,14 @@ class Grafo:
         self.nodosSecundarios.append(nombre)
 
     def agregar_arista(self, origen, destino, peso, segura):
+        
+        if (peso < 0):
+            raise ValueError("El peso de la arista no puede ser negativo")
+        if (not(origen in self.nodosPrincipales or origen in self.nodosSecundarios)):
+            raise ValueError("El origen no es uno de los nodos previstos")
+        elif (not(destino in self.nodosPrincipales or destino in self.nodosSecundarios)):
+            raise ValueError("El destino no es uno de los nodos previstos")
+        
         self.grafo.add_edge(origen, destino, weight=peso, segura_para_ebike=segura)
 
     def caminoMinimoAlumno(self, origen, destino):
@@ -43,6 +61,7 @@ class Grafo:
             return None, "No hay camino seguro para ebikes entre los nodos especificados."
 
     def calcularRutaCamion(self):
+        peso_total = 0
         caminofinal = []  # lista que contendrá el recorrido a devolver
 
         # copia la lista de nodos principales, sin afectar el original
@@ -83,7 +102,6 @@ class Grafo:
             principal.remove(Origen)
             principal.remove(nuevoOrigen)
             principal.insert(0, nuevoOrigen)
-
         return caminofinal  # devuelve la lista con el recorrido
 
     def eliminar_nodo(self, nombre):
@@ -92,6 +110,7 @@ class Grafo:
             self.nodosPrincipales.remove(nombre)
         elif nombre in self.nodosSecundarios:
             self.nodosSecundarios.remove(nombre)
+    
 
     def visualizar_circuito(self):
         layout = nx.spring_layout(self.grafo)  # diseño del grafo
@@ -111,4 +130,5 @@ class Grafo:
                                  font_color='blue')  # opcional: cambiar color para mejor visibilidad
 
         plt.show()
-
+        
+        

@@ -22,6 +22,15 @@ class Grafo:
         :param destino: Nodo de fin
         :param peso: Costo del recorrido
         """
+        
+        #controlamos que el peso de las arista no sea negativo y que los nodos existan
+        if(peso < 1):
+            raise ValueError("El peso de la arista no puede ser negativo")
+        if(not(origen in self.nodosPrincipales or origen in self.nodosSecundarios)):
+            raise ValueError("El origen no es uno de los nodos previstos")
+        elif(not(destino in self.nodosPrincipales or destino in self.nodosSecundarios)):
+            raise ValueError("El destino no es uno de los nodos previstos")
+        
         self.grafo.add_edge(origen, destino, weight=peso)
 
     def caminoMinimoAlumno(self, origen, destino):
