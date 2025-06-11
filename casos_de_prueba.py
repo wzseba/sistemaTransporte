@@ -28,7 +28,9 @@ rutas = [("Casa Rosada", "Cabildo", 3, True),
          ("Casa3", "Plaza de Mayo", 7, True)]
 
 circuito1 = Circuito_Ebike(edificios_importantes, lugares_secundarios, rutas)
+circuito1.visualizar_circuito()
 
+# CASO DE PRUEBA N° 1
 
 # caso_ruta_segura_para _e-bikes
 # Objetivo: Encontrar la ruta mas corta entre el Planetario y la Facultad de Derecho, usando solo aristas marcadas como segura.
@@ -39,20 +41,34 @@ Resultado esperado: 🏢Edificio Kavanagh⇒Teatro Colón⇒Plaza de Mayo⇒🏫
 
 """print(circuito1.caminoMinimoAlumno("Edificio Kavanagh", "Casa1"))"""
 
+# -------------------------------------------------------------------------------------------------------------------------------------------
+# CASO DE PRUEBA N° 2
 
 # caso_peso_de_aristas_negativo
-# Objetivo: Detectar un error al usar valores negativos en el peso de las aristas.
+# Objetivo: Detectar un error al usar valores negativos en el peso de las aristas. lANZAR UNA EXCEPCIÓN ValueError.
+
+"""
+Resultado esperado: ValueError: La distancia no puede ser negativa
+"""
+
 
 """
 circuito1.agregar_ruta("Casa1", "Congreso", -10, True)
 """
 
+# -------------------------------------------------------------------------------------------------------------------------------------------
+# CASO DE PRUEBA N° 3
+
 # caso_nodos_inexistentes
-# Objetivo: Detectar un error al agregar aristas con nodos que no existen.
+# Objetivo: Detectar un error al agregar aristas con nodos que no existen. Lanzar una excepción ValueError.
 
 """
-circuito1.agregar_arista("Mar del Plata", "Casa Rosada", 5, False)
+Resultado esperado: ValueError: El origen no es uno de los lugares previstos
 """
+
+
+# entrada:
+"""circuito1.agregar_ruta("Mar del Plata", "Casa Rosada", 5, False)"""
 
 
 # -----------------------------------------------------------#
