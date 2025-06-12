@@ -37,7 +37,7 @@ class Circuito_Ebike:
         # Verifica que la distancia no sea negativa y que los nodos existan
         self._validar_ruta_y_lugar(self.lugares_secundarios, punto_existente, punto_nuevo, distancia, segura)
 
-    def _validar_ruta_y_lugar(self, tipo_de_lista, nodo_existente, nodo_nuevo, distancia, segura):
+    def __validar_ruta_y_lugar(self, tipo_de_lista, nodo_existente, nodo_nuevo, distancia, segura):
         if (distancia < 0):
             raise ValueError("La distancia no puede ser negativa")
         if (nodo_nuevo in self.edificios_principales or nodo_nuevo in self.lugares_secundarios):
