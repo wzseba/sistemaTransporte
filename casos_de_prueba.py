@@ -52,9 +52,8 @@ Resultado esperado: ValueError: La distancia no puede ser negativa
 """
 
 
-"""
+
 circuito1.agregar_ruta("Casa1", "Congreso", -10, True)
-"""
 
 # -------------------------------------------------------------------------------------------------------------------------------------------
 # CASO DE PRUEBA N° 3
