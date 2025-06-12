@@ -18,8 +18,8 @@ Se creó una clase `Grafo` en Python, utilizando la librería `networkx`, para t
 
 #### 👷‍♂️ Atributos
 
-- `nodosPrincipales`: lista de nodos considerados como edificios históricos.
-- `nodosSecundarios`: lista de nodos secundarios como casas o puntos turísticos.
+- `edificios_principales`: lista de nodos considerados como edificios históricos.
+- `lugares_secundarios`: lista de nodos secundarios como casas o puntos turísticos.
 - `grafo`: objeto `Graph` de `networkx`.
 
 #### 🔧 Métodos principales

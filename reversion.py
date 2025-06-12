@@ -30,16 +30,20 @@ class Circuito_Ebike:
     # Agrega un edificio principal al circuito y una ruta desde un edificio existente, teniendo en cuenta la distancia y si es segura para ebikes.
 
     def agregar_ruta_y_edificio_principal(self, edificio_existente, edificio_nuevo, distancia, segura):
+        # Verifica que la distancia no sea negativa y que los nodos existan
         self._validar_ruta_y_lugar(
             self.edificios_principales, edificio_existente, edificio_nuevo, distancia, segura)
 
     def agregar_ruta_y_lugar_secundario(self, punto_existente, punto_nuevo, distancia, segura):
+        # Verifica que la distancia no sea negativa y que los nodos existan
         self._validar_ruta_y_lugar(
             self.lugares_secundarios, punto_existente, punto_nuevo, distancia, segura)
 
-    def __validar_ruta_y_lugar(self, tipo_de_lista, nodo_existente, nodo_nuevo, distancia, segura):
+    def _validar_ruta_y_lugar(self, tipo_de_lista, nodo_existente, nodo_nuevo, distancia, segura):
+        if (distancia < 0):
+            raise ValueError("La distancia no puede ser negativa")
         if (nodo_nuevo in self.edificios_principales or nodo_nuevo in self.lugares_secundarios):
-            raise ValueError("El nodo ya existe")
+            raise ValueError("El lugar ya esta cargado")
         elif (nodo_existente not in self.edificios_principales and nodo_existente not in self.lugares_secundarios):
             raise ValueError("El nodo no existe")
 
@@ -53,11 +57,11 @@ class Circuito_Ebike:
     def agregar_ruta(self, origen, destino, distancia, segura):
 
         if (distancia < 0):
-            raise ValueError("El distancia de la arista no puede ser negativo")
+            raise ValueError("La distancia de la ruta no puede ser negativa")
         if (not (origen in self.edificios_principales or origen in self.lugares_secundarios)):
-            raise ValueError("El origen no es uno de los nodos previstos")
+            raise ValueError("El origen no es uno de los lugares previstos")
         elif (not (destino in self.edificios_principales or destino in self.lugares_secundarios)):
-            raise ValueError("El destino no es uno de los nodos previstos")
+            raise ValueError("El destino no es uno de los lugares previstos")
 
         self.grafo.add_edge(origen, destino, weight=distancia,
                             segura_para_ebike=segura)
