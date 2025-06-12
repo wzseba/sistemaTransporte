@@ -28,7 +28,6 @@ rutas = [("Casa Rosada", "Cabildo", 3, True),
          ("Casa3", "Plaza de Mayo", 7, True)]
 
 circuito1 = Circuito_Ebike(edificios_importantes, lugares_secundarios, rutas)
-circuito1.visualizar_circuito()
 
 # CASO DE PRUEBA N° 1
 
@@ -119,20 +118,23 @@ rutas = [
 circuito2 = Circuito_Ebike(edificios_importantes, lugares_secundarios, rutas)
 
 
+# --------------------------------------------------------------------------------------------------------------------------------
+# CASO DE PRUEBA N° 1
+
 # caso_agregar_nuevo_lugar
 # Objetivo: Agregar un nuevo edificio a la lista de edificios principales y asegurarse de que siempre tenga una ruta
 
-"""
-circuito2.visualizar_circuito()
-circuito2.agregar_ruta_y_edificio_principal("Teatro San Martín", "Facultad de C.Exactas", 4, True)
-circuito2.visualizar_circuito()
-"""
 
+"""circuito2.visualizar_circuito()
+circuito2.agregar_ruta_y_edificio_principal(
+    "Teatro San Martín", "Facultad de C.Exactas", 4, True)
+circuito2.visualizar_circuito()
+"""
 # caso_calcular_ruta_camion
 # Objetivo: Calcular el camino mas corto que pase por todos los edificios principales
-"""
+
 print(circuito2.calcularRutaCamion())
-"""
+
 
 # caso_eliminar_lugar
 # Objetivo: Verificar que el lugar se elimine correctamente
@@ -141,3 +143,5 @@ circuito2.visualizar_circuito()
 circuito2.eliminar_lugar("Teatro San Martín")
 circuito2.visualizar_circuito()
 """
+
+# print(circuito2.rutaCamion_con_MST_optimo())

@@ -30,26 +30,25 @@ class Circuito_Ebike:
     # Agrega un edificio principal al circuito y una ruta desde un edificio existente, teniendo en cuenta la distancia y si es segura para ebikes.
 
     def agregar_ruta_y_edificio_principal(self, edificio_existente, edificio_nuevo, distancia, segura):
-        # Verifica que la distancia no sea negativa y que los nodos existan
-        self._validar_ruta_y_lugar(self.edificios_principales, edificio_existente, edificio_nuevo, distancia, segura)
+        self._validar_ruta_y_lugar(
+            self.edificios_principales, edificio_existente, edificio_nuevo, distancia, segura)
 
     def agregar_ruta_y_lugar_secundario(self, punto_existente, punto_nuevo, distancia, segura):
-        # Verifica que la distancia no sea negativa y que los nodos existan
-        self._validar_ruta_y_lugar(self.lugares_secundarios, punto_existente, punto_nuevo, distancia, segura)
+        self._validar_ruta_y_lugar(
+            self.lugares_secundarios, punto_existente, punto_nuevo, distancia, segura)
 
-    def _validar_ruta_y_lugar(self, tipo_de_lista, nodo_existente, nodo_nuevo, distancia, segura):
-        if (distancia < 0):
-            raise ValueError("La distancia no puede ser negativa")
+    def __validar_ruta_y_lugar(self, tipo_de_lista, nodo_existente, nodo_nuevo, distancia, segura):
         if (nodo_nuevo in self.edificios_principales or nodo_nuevo in self.lugares_secundarios):
             raise ValueError("El nodo ya existe")
         elif (nodo_existente not in self.edificios_principales and nodo_existente not in self.lugares_secundarios):
             raise ValueError("El nodo no existe")
-        
+
         # Añadimos el nuevo nodo al grafo y a la lista correspondiente
         self.grafo.add_node(nodo_nuevo)
         tipo_de_lista.append(nodo_nuevo)
         # Agrega una ruta entre un nodo existente y un nuevo nodo, ya sea un edificio principal o un lugar secundario
-        self.grafo.add_edge(nodo_existente, nodo_nuevo, weight=distancia, segura_para_ebike=segura)
+        self.grafo.add_edge(nodo_existente, nodo_nuevo,
+                            weight=distancia, segura_para_ebike=segura)
 
     def agregar_ruta(self, origen, destino, distancia, segura):
 
@@ -122,11 +121,11 @@ class Circuito_Ebike:
             else:
                 # solo en la primera iteracion se agrega el camino completo
                 caminofinal.extend(agregar)
-
+            distancia_total += aux
             principal.remove(Origen)
             principal.remove(nuevoOrigen)
             principal.insert(0, nuevoOrigen)
-        return caminofinal  # devuelve la lista con el recorrido
+        return caminofinal, distancia_total  # devuelve la lista con el recorrido
     # Elimina un lugar del circuito, ya sea un edificio principal o un lugar secundario
 
     def eliminar_lugar(self, nombre):
@@ -141,14 +140,14 @@ class Circuito_Ebike:
         layout = nx.spring_layout(self.grafo)  # diseño del grafo
         labels = nx.get_edge_attributes(
             self.grafo, 'weight')  # obtiene los distancias
-        
+
     # Colores para nodos principales y secundarios
         colores = []
         for nodo in self.grafo.nodes():
             if nodo in self.edificios_principales:
-                colores.append("#18527c") # color para edificios principales
+                colores.append("#18527c")  # color para edificios principales
             else:
-                colores.append("#1c631c") # color para lugares secundarios
+                colores.append("#1c631c")  # color para lugares secundarios
 
     # Dibuja el grafo
         nx.draw(self.grafo, pos=nx.circular_layout(self.grafo), with_labels=True,
