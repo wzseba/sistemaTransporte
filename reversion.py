@@ -31,11 +31,11 @@ class Circuito_Ebike:
 
     def agregar_ruta_y_edificio_principal(self, edificio_existente, edificio_nuevo, distancia, segura):
         # Verifica que la distancia no sea negativa y que los nodos existan
-        self._validar_ruta_y_lugar(self.edificios_principales, edificio_existente, edificio_nuevo, distancia, segura)
+        self.__validar_ruta_y_lugar(self.edificios_principales, edificio_existente, edificio_nuevo, distancia, segura)
 
     def agregar_ruta_y_lugar_secundario(self, punto_existente, punto_nuevo, distancia, segura):
         # Verifica que la distancia no sea negativa y que los nodos existan
-        self._validar_ruta_y_lugar(self.lugares_secundarios, punto_existente, punto_nuevo, distancia, segura)
+        self.__validar_ruta_y_lugar(self.lugares_secundarios, punto_existente, punto_nuevo, distancia, segura)
 
     def __validar_ruta_y_lugar(self, tipo_de_lista, nodo_existente, nodo_nuevo, distancia, segura):
         if (distancia < 0):
